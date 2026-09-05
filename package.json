@@ -1,0 +1,24 @@
+{
+  "name": "mfe-architecture",
+  "private": true,
+  "description": "Micro frontend orchestration with single-spa + Webpack Module Federation",
+  "workspaces": [
+    "root-config",
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {
+    "start": "concurrently -n root,nav,dash,settings -c blue,green,yellow,magenta \"npm run start -w root-config\" \"npm run start -w @mfe/nav\" \"npm run start -w @mfe/dashboard\" \"npm run start -w @mfe/settings\"",
+    "build": "npm run build -w @mfe/nav && npm run build -w @mfe/dashboard && npm run build -w @mfe/settings && npm run build -w root-config",
+    "start:root": "npm run start -w root-config",
+    "start:nav": "npm run start -w @mfe/nav",
+    "start:dashboard": "npm run start -w @mfe/dashboard",
+    "start:settings": "npm run start -w @mfe/settings"
+  },
+  "devDependencies": {
+    "concurrently": "^9.1.2"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
